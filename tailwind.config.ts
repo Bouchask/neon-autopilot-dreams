@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,18 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Cyberpunk color palette
+				cyberpunk: {
+					dark: '#1A1F2C',
+					gray: '#8E9196',
+					blue: '#1EAEDB',
+					purple: '#8B5CF6',
+					pink: '#D946EF',
+					charcoal: '#221F26',
+					black: '#000000e6',
+					coolGray: '#aaadb0',
+					red: '#ea384c'
 				}
 			},
 			borderRadius: {
@@ -70,25 +83,40 @@ export default {
 			},
 			keyframes: {
 				'accordion-down': {
-					from: {
-						height: '0'
-					},
-					to: {
-						height: 'var(--radix-accordion-content-height)'
-					}
+					from: { height: '0' },
+					to: { height: 'var(--radix-accordion-content-height)' }
 				},
 				'accordion-up': {
-					from: {
-						height: 'var(--radix-accordion-content-height)'
+					from: { height: 'var(--radix-accordion-content-height)' },
+					to: { height: '0' }
+				},
+				'neon-pulse': {
+					'0%, 100%': { 
+						boxShadow: '0 0 10px #1EAEDB, 0 0 20px #1EAEDB'
 					},
-					to: {
-						height: '0'
+					'50%': { 
+						boxShadow: '0 0 5px #1EAEDB, 0 0 10px #1EAEDB'
 					}
+				},
+				'text-glow': {
+					'0%, 100%': { 
+						textShadow: '0 0 5px #1EAEDB, 0 0 10px #1EAEDB'
+					},
+					'50%': { 
+						textShadow: '0 0 2px #1EAEDB, 0 0 5px #1EAEDB'
+					}
+				},
+				'fog-drift': {
+					'0%': { transform: 'translateX(0)' },
+					'100%': { transform: 'translateX(100%)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'neon-pulse': 'neon-pulse 2s infinite',
+				'text-glow': 'text-glow 2s infinite',
+				'fog-drift': 'fog-drift 20s infinite linear'
 			}
 		}
 	},

@@ -1,13 +1,32 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import { useState, useEffect } from "react";
+import { GameStateProvider } from "@/hooks/useGameState";
+import GameCanvas from "@/components/GameCanvas";
+import LoadingScreen from "@/components/LoadingScreen";
+import DebuggingInterface from "@/components/DebuggingInterface";
+import GameInstructions from "@/components/GameInstructions";
 
 const Index = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading process
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 4500);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+    <GameStateProvider>
+      <div className="min-h-screen bg-cyberpunk-dark text-cyberpunk-coolGray relative">
+        {isLoading && <LoadingScreen />}
+        <GameCanvas />
+        <DebuggingInterface />
+        <GameInstructions />
       </div>
-    </div>
+    </GameStateProvider>
   );
 };
 
