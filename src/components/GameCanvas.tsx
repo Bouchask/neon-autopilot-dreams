@@ -1,3 +1,4 @@
+
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { useGameState } from '@/hooks/useGameState';
@@ -29,6 +30,10 @@ const GameCanvas = () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true;
     
+    // Make sure the div is clean before appending
+    while (canvasRef.current.firstChild) {
+      canvasRef.current.removeChild(canvasRef.current.firstChild);
+    }
     canvasRef.current.appendChild(renderer.domElement);
     
     // Add ambient light
@@ -458,6 +463,7 @@ const GameCanvas = () => {
     // Notify that the game has loaded
     setTimeout(() => {
       setIsLoaded(true);
+      console.log("Game loaded successfully");
     }, 1000);
     
     // Start animation loop
@@ -465,17 +471,21 @@ const GameCanvas = () => {
     
     // Cleanup
     return () => {
+      console.log("Cleaning up game resources");
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
       window.removeEventListener('resize', handleResize);
       
       if (canvasRef.current) {
-        canvasRef.current.removeChild(renderer.domElement);
+        if (renderer.domElement && renderer.domElement.parentNode) {
+          renderer.domElement.parentNode.removeChild(renderer.domElement);
+        }
+        renderer.dispose();
       }
     };
-  }, []);
+  }, [updateSensorData, updateVehicleStats, setIsLoaded]);
   
-  return <div ref={canvasRef} id="canvas-container" />;
+  return <div ref={canvasRef} id="canvas-container" className="w-full h-full" />;
 };
 
 export default GameCanvas;

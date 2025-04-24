@@ -13,16 +13,19 @@ const Index = () => {
     // Simulate loading process
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 4500);
+      console.log("Loading complete, showing game");
+    }, 3000); // Reduced loading time for testing
     
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <GameStateProvider>
-      <div className="min-h-screen bg-cyberpunk-dark text-cyberpunk-coolGray relative">
+      <div className="min-h-screen bg-cyberpunk-dark text-cyberpunk-coolGray relative overflow-hidden">
         {isLoading && <LoadingScreen />}
-        <GameCanvas />
+        <div className="absolute inset-0">
+          <GameCanvas />
+        </div>
         <DebuggingInterface />
         <GameInstructions />
       </div>
